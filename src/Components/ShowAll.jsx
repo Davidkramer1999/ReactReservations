@@ -21,27 +21,22 @@ class ShowAll extends React.Component {
                 { id: "false", name: "not available" }
             ],
             selected: [],
-            headers: ['checkbox', 'crypto', 'id', 'name', 'address', 'avaliable', 'city', 'country', 'priceInEur', 'createdAt'],
+            headers: ['id', 'crypto', 'name', 'address', 'avaliable', 'city', 'country', 'priceInEur', 'createdAt'],
 
         };
     }
 
     componentDidMount() {
-
-        const getSymbols = this.context.data.map(el => { return el.symbol })
-        const addSymbols = getSymbols.concat(this.state.headers)
-        this.setState({
-            headers: addSymbols
-        })
+        //could add each column.. 
+        // const getSymbols = this.context.data.map(el => { return el.symbol })
+        // const addSymbols = getSymbols.concat(this.state.headers)
+        // this.setState({
+        //     headers: addSymbols
+        // })
     }
 
     render() {
-
-
-        const { data, headers, dropdownData, selectedValue } = this.state
-        console.log(headers)
-
-
+        const {  headers } = this.state
 
         return (
             <Card>
@@ -77,7 +72,14 @@ class ShowAll extends React.Component {
                                             accessor: el,
                                             width: 270,
                                             Cell: (el) => {
-                                                return <span>{el.original.priceInEur * this.context.data[0].rate}</span>;
+                                                console.log(el.original.price)
+                                                return <span>{
+                                                    <div>
+                                                        {el.original.price.map(function (d, idx) {
+                                                            return (<li key={idx}>{d.symbol + ":" + d.priceInCurrency}</li>)
+                                                        })}
+                                                    </div>
+                                                }</span>;
                                             },
                                         };
                                     }
@@ -145,6 +147,10 @@ class ShowAll extends React.Component {
                                         return {
                                             Header: "priceInEur",
                                             accessor: el,
+                                            id: "priceInEur",
+                                            filterMethod: (filter, rows) =>
+                                                matchSorter(rows, filter.value, { keys: ["priceInEur"] }),
+                                            filterAll: true,
                                             width: 270,
                                             Cell: (el) => {
                                                 return <span>{el.original.priceInEur}</span>;
@@ -188,18 +194,6 @@ class ShowAll extends React.Component {
                                                 </select>
                                         }
                                     }
-                                    else if (el === "checkbox") {
-                                        return {
-                                            Header: "#",
-                                            width: 40,
-                                            className: "d-flex justify-content-center",
-                                            Cell: (el) => {
-                                                return <div class="form-check">
-                                                    <input type="checkbox" name="acceptRules" class="inline checkbox" id="checkbox1" value="false" onClick={e => this.getSelected(el.original, e.target.checked)} />
-                                                </div>
-                                            },
-                                        };
-                                    }
                                     else {
                                         return {
                                             Header: el,
@@ -208,7 +202,6 @@ class ShowAll extends React.Component {
                                             className: "",
                                             className: "d-flex justify-content-center",
                                             Cell: (el) => {
-                                                console.log(el)
                                                 return <span>{el.original.id}</span>;
                                             },
                                         }

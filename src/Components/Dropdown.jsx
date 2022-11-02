@@ -16,6 +16,9 @@ class Dropdown extends React.Component {
 
     componentDidMount() {
         this.getCurrency()
+        this.setState({
+            selectedValue: this.context.data
+        })
     }
 
     getCurrency() {
@@ -44,8 +47,6 @@ class Dropdown extends React.Component {
 
     render() {
         const { dropdownData, selectedValue } = this.state
-        const test = this.context
-        console.log(test.data)
         return (
             <Card>
                 <Col md="12">

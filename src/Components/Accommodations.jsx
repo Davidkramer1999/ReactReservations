@@ -48,13 +48,21 @@ class Accommodations extends React.Component {
 
     setData = () => {
         const { data } = this.state
-        const showReservations = data.filter(el => el.selected === true)
+        const addPrices = data.map((el) => {
+            return {
+                ...el, price: this.context.data.map(element => {
+                    return {
+                        ...element, priceInCurrency: element.rate * el.priceInEur
+                    }
+                })
+            }
+
+        })
+        const showReservations = addPrices.filter(el => el.selected === true)
         this.context.setAccommodations(showReservations)
     }
     render() {
         const { data, headers } = this.state
-
-
         return (
             <Card>
                 <Col md="12">
@@ -146,6 +154,10 @@ class Accommodations extends React.Component {
                                         return {
                                             Header: "priceInEur",
                                             accessor: el,
+                                            id: "priceInEur",
+                                            filterMethod: (filter, rows) =>
+                                                matchSorter(rows, filter.value, { keys: ["priceInEur"] }),
+                                            filterAll: true,
                                             width: 270,
                                             Cell: (el) => {
                                                 return <span>{el.original.priceInEur}</span>;
