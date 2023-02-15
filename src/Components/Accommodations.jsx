@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, Col, CardHeader } from "reactstrap";
+import { Card, Col, CardHeader, Input } from "reactstrap";
 import ReactTable from 'react-table-v6'
 import 'react-table-v6/react-table.css'
 import { matchSorter } from 'match-sorter'
@@ -28,6 +28,7 @@ class Accommodations extends React.Component {
     }
 
     getCurrency() {
+
         fetch('https://5ddbbbd5041ac10014de14d7.mockapi.io/accommodations/prices')
             .then(response => response.json())
             .then(data => this.setState({
@@ -58,8 +59,7 @@ class Accommodations extends React.Component {
             }
 
         })
-        const showReservations = addPrices.filter(el => el.selected === true)
-        this.context.setAccommodations(showReservations)
+        this.context.setAccommodations(addPrices)
     }
     render() {
         const { data, headers } = this.state
@@ -208,7 +208,10 @@ class Accommodations extends React.Component {
                                             className: "d-flex justify-content-center",
                                             Cell: (el) => {
                                                 return <div className="form-check">
-                                                    <input type="checkbox" name="acceptRules" className="inline checkbox" id="checkbox1" value="false" onClick={e => this.getSelected(el.original, e.target.checked)} />
+                                                    <Input
+                                                        type="checkbox"
+                                                        onChange={(e) => this.getSelected(el.original, e.target.checked)}
+                                                        value={el.original.selected} />
                                                 </div>
                                             },
                                         };

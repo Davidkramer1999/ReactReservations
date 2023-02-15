@@ -22,11 +22,16 @@ class ShowAll extends React.Component {
             ],
             selected: [],
             headers: ['id', 'crypto', 'name', 'address', 'avaliable', 'city', 'country', 'priceInEur', 'createdAt'],
-
+            showReservations: [],
         };
     }
 
     componentDidMount() {
+        const showReservations = this.context.accommodations.filter(el => el.selected === true)
+        this.setState({
+            showReservations: showReservations,
+            allReservations: this.context.accommodations
+        })
         //could add each column.. 
         // const getSymbols = this.context.data.map(el => { return el.symbol })
         // const addSymbols = getSymbols.concat(this.state.headers)
@@ -35,9 +40,12 @@ class ShowAll extends React.Component {
         // })
     }
 
-    render() {
-        const {  headers } = this.state
+    saveAccommodations = () => {
+        this.context.setAccommodations(this.state.allReservations)
+    }
 
+    render() {
+        const { headers, showReservations } = this.state
         return (
             <Card>
                 <Col md="12">
@@ -54,7 +62,7 @@ class ShowAll extends React.Component {
                                 minRows={0}
                                 key={"table"}
                                 defaultPageSize={11}
-                                data={this.context.accommodations}
+                                data={showReservations}
                                 columns={headers.map((el, index) => {
                                     if (el === "id") {
                                         return {
@@ -72,11 +80,10 @@ class ShowAll extends React.Component {
                                             accessor: el,
                                             width: 270,
                                             Cell: (el) => {
-                                                console.log(el.original.price)
                                                 return <span>{
                                                     <div>
                                                         {el.original.price.map(function (d, idx) {
-                                                            return (<li key={idx}>{d.symbol + ":" + d.priceInCurrency}</li>)
+                                                            return (<li key={idx}>{d.symbol + ":" + Math.round(d.priceInCurrency)}</li>)
                                                         })}
                                                     </div>
                                                 }</span>;
@@ -209,7 +216,7 @@ class ShowAll extends React.Component {
                                 })}
                             />
 
-                            <li>
+                            <li onClick={() => this.saveAccommodations()}>
                                 <Link to="/Accommodations"> Go back accommodations</Link>
                             </li>
                         </Col>
