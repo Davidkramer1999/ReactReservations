@@ -13,7 +13,6 @@ class ShowAll extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            headers: [],
             data: [],
             selectedValue: [],
             dropdownData: [
@@ -108,7 +107,6 @@ class ShowAll extends React.Component {
                                     else if (el === "address") {
                                         return {
                                             Header: "address",
-                                            accessor: el,
                                             id: "address",
                                             accessor: d => d.address,
                                             filterMethod: (filter, rows) =>
@@ -123,7 +121,6 @@ class ShowAll extends React.Component {
                                     else if (el === "city") {
                                         return {
                                             Header: "city",
-                                            accessor: el,
                                             id: "city",
                                             accessor: d => d.city,
                                             filterMethod: (filter, rows) =>
@@ -138,7 +135,6 @@ class ShowAll extends React.Component {
                                     else if (el === "country") {
                                         return {
                                             Header: "country",
-                                            accessor: el,
                                             id: "country",
                                             accessor: d => d.country,
                                             filterMethod: (filter, rows) =>
@@ -206,7 +202,6 @@ class ShowAll extends React.Component {
                                             Header: el,
                                             accessor: el,
                                             id: Math.random(),
-                                            className: "",
                                             className: "d-flex justify-content-center",
                                             Cell: (el) => {
                                                 return <span>{el.original.id}</span>;
