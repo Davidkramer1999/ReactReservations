@@ -4,7 +4,6 @@ import ReactTable from 'react-table-v6'
 import 'react-table-v6/react-table.css'
 import { matchSorter } from 'match-sorter'
 import { Context } from "../Context";
-import { Link } from "react-router-dom";
 
 class Accommodations extends React.Component {
     static contextType = Context
@@ -44,7 +43,10 @@ class Accommodations extends React.Component {
         data[i] = item;
         this.setState({
             data: data
+        }, () => {
+            this.setData()
         })
+
     }
 
     setData = () => {
@@ -224,12 +226,6 @@ class Accommodations extends React.Component {
                                     }
                                 })}
                             />
-                            <li>
-                                <Link to="/Dropdown">Select crypto</Link>
-                            </li>
-                            <li onClick={(e) => this.setData(e)}>
-                                <Link to="/ShowAll">Go to selected accommodations</Link>
-                            </li>
                         </Col>
                     </CardHeader>
                 </Col >
@@ -238,7 +234,5 @@ class Accommodations extends React.Component {
         )
     }
 }
-
-
 
 export default Accommodations;

@@ -1,0 +1,14 @@
+.multiSelect {
+    margin: auto;
+    width: 30%;
+    padding-top: 50px;
+}
+
+.backgroundImg {
+    background-image: url(https://mcdn.wallpapersafari.com/medium/66/32/g6WHKt.jpg);
+    background-position: bottom;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
+    width: 100%;
+}
