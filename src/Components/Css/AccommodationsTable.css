@@ -1,0 +1,25 @@
+.alignTextCenter{
+    text-align: center;
+}
+
+.alignTextLeft{
+text-align: initial;
+}
+
+
+.table{
+    margin: 3rem;
+    box-shadow: 0.7rem 0.7rem 0rem lightgrey;
+    border: 4px solid lightgrey;
+}
+
+.rt-thead{
+    padding: 3px;
+}
+.rt-table{
+    padding: 3px;
+}
+
+.pagination-bottom{
+    padding: 10px;
+}

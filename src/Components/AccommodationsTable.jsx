@@ -4,6 +4,7 @@ import { matchSorter } from 'match-sorter'
 import { Context } from '../Context'
 
 import 'react-table-v6/react-table.css'
+import './Css/AccommodationsTable.css'
 
 export default function AccommodationsTable({ headers, selectedAccommodations }) {
 
@@ -22,7 +23,7 @@ export default function AccommodationsTable({ headers, selectedAccommodations })
             filterable
             defaultFilterMethod={(filter, row) =>
                 String(row[filter.id]) === filter.value}
-            className="-striped -highlight "
+            className="table"
             minRows={0}
             key={"table"}
             defaultPageSize={11}
@@ -31,6 +32,7 @@ export default function AccommodationsTable({ headers, selectedAccommodations })
                 if (el === "id") {
                     return {
                         Header: "No.",
+                        className: "alignTextCenter",
                         accessor: el,
                         width: 50,
                         Cell: (el) => {
@@ -39,8 +41,8 @@ export default function AccommodationsTable({ headers, selectedAccommodations })
                     };
                 } else if (el === "name") {
                     return {
-                        className: "p-0",
                         Header: "Name",
+                        className: "alignTextLeft",
                         id: "name",
                         accessor: d => d.name,
                         filterMethod: (filter, rows) =>
@@ -70,7 +72,7 @@ export default function AccommodationsTable({ headers, selectedAccommodations })
                 }
                 else if (el === "address") {
                     return {
-                        Header: "address",
+                        Header: "Address",
                         id: "Address",
                         accessor: d => d.address,
                         filterMethod: (filter, rows) =>
@@ -114,11 +116,12 @@ export default function AccommodationsTable({ headers, selectedAccommodations })
                     return {
                         Header: "Price in eur",
                         accessor: el,
+                        className: "alignTextCenter",
                         id: "priceInEur",
                         filterMethod: (filter, rows) =>
                             matchSorter(rows, filter.value, { keys: ["priceInEur"] }),
                         filterAll: true,
-                        width: 270,
+                        width: 170,
                         Cell: (el) => {
                             return <span>{`${Math.round(el.original.priceInEur)} €`}</span>;
                         },
@@ -139,6 +142,7 @@ export default function AccommodationsTable({ headers, selectedAccommodations })
                         Header: "Available",
                         accessor: el,
                         width: 170,
+                        className: "alignTextCenter",
                         Cell: ({ value }) => (value === true ? "Yes" : "No"),
                         filterMethod: (filter, row) => {
                             if (filter.value === "all") {
@@ -164,9 +168,9 @@ export default function AccommodationsTable({ headers, selectedAccommodations })
                     return {
                         Header: "#",
                         width: 40,
-                        className: "d-flex justify-content-center",
+                        className: "alignTextCenter",
                         Cell: (el) => {
-                            return <div className="form-check">
+                            return <div >
                                 <input
                                     type="checkbox"
                                     onChange={(e) => getSelected(el.original, e.target.checked)}
@@ -178,7 +182,7 @@ export default function AccommodationsTable({ headers, selectedAccommodations })
                 else {
                     return {
                         accessor: el,
-                        className: "d-flex justify-content-center",
+                        className: "alignTextCenter",
                         Cell: (el) => {
                             return <div>{el.original.id}</div>
                         },

@@ -26,7 +26,7 @@ class Accommodations extends React.Component {
     includePricesInEur = (accommodations) => {
         const addPriceInEur = accommodations.map((el) => {
             return {
-                ...el,  price: this.context.data.map(element => {
+                ...el, price: this.context.data.map(element => {
                     return {
                         ...element, priceInCurrency: element.rate * el.priceInEur
                     }

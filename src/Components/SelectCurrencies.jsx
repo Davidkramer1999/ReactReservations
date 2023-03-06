@@ -12,10 +12,11 @@ export default function SelectCurrencies() {
 
     const [allCurrencies, setAllCurrencies] = useState([])
     const [selectedCurrencies, setSelectedCurrencies] = useState([])
-    const { setData } = useContext(Context)
+    const { data, setData } = useContext(Context)
 
 
     useEffect(() => {
+        setSelectedCurrencies(data)
         fetch('https://api.exchangerate-api.com/v4/latest/EUR')
             .then(response => response.json())
             .then(data => structureSymbolRate(data.rates));
