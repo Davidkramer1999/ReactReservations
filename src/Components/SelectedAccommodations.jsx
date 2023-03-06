@@ -6,7 +6,7 @@ import AccommodationsTable from "./AccommodationsTable";
 export default function SelectedAccommodations() {
 
     const [showReservations, setShowReservations] = useState([])
-    const { accommodations, setAccommodations } = useContext(Context)
+    const { accommodations } = useContext(Context)
     const headers = ['id', 'crypto', 'name', 'address', 'available', 'city', 'country', 'createdAt']
 
     useEffect(() => {

@@ -12,7 +12,7 @@ export default function SelectCurrencies() {
 
     const [allCurrencies, setAllCurrencies] = useState([])
     const [selectedCurrencies, setSelectedCurrencies] = useState([])
-    const { data, setData } = useContext(Context)
+    const { setData } = useContext(Context)
 
 
     useEffect(() => {
