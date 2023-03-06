@@ -1,72 +1,61 @@
-import React from "react";
+
+
+import React, { useEffect, useState , useContext} from 'react'
 import Select from 'react-select';
+
 import { Context } from "../Context";
 
 import "./Css/SelectCurrencies.css"
 
-class SelectCurrencies extends React.Component {
-    static contextType = Context
-    _isMounted = false;
-    constructor(props) {
-        super(props);
-        this.state = {
-            currencies: [],
-            selectedCurrencies: []
-        };
-    }
 
-    componentDidMount() {
-        this.getCurrency()
-        this.setState({
-            selectedCurrencies: this.context.data
-        })
-    }
+export default function SelectCurrencies() {
 
-    getCurrency() {
+    const [allCurrencies, setAllCurrencies] = useState([])
+    const [selectedCurrencies, setSelectedCurrencies] = useState([])
+    const { data, setData } = useContext(Context)
+
+
+    useEffect(() => {
         fetch('https://api.exchangerate-api.com/v4/latest/EUR')
             .then(response => response.json())
-            .then(data => this.structureSymbolRate(data.rates));
-    }
+            .then(data => structureSymbolRate(data.rates));
+    })
 
-    structureSymbolRate = (objects) => {
+
+
+    const structureSymbolRate = (values) => {
         let rates = []
-        for (const [symbol, rate] of Object.entries(objects)) {
+        for (const [symbol, rate] of Object.entries(values)) {
             rates.push({
                 symbol,
                 rate,
             });
         }
-        this.rates = rates
-        this.setState({ currencies: rates })
+        setAllCurrencies(rates)
     }
 
-    selectedCurrencies = (value) => {
-        this.context.setData(value)
-        this.setState({ selectedCurrencies: value })
+    const handleSelectedCurrencies = (value) => {
+        setData(value)
+        setSelectedCurrencies(value)
     }
 
 
-    render() {
-        const { currencies, selectedCurrencies } = this.state
-        return (
-            <div>
-                <div className="backgroundImg">         
+    return (
+        <div>
+            <div className="backgroundImg">
                 <div >
                     <Select
-                        options={currencies}
+                        options={allCurrencies}
                         value={selectedCurrencies}
                         isSearchable={false}
-                        onChange={data => this.selectedCurrencies(data)}
+                        onChange={data => handleSelectedCurrencies(data)}
                         getOptionLabel={(option) => option.symbol}
                         getOptionValue={(option) => option.rate}
                         isMulti
                         className="multiSelect"
                     />
                 </div>
-                </div>
             </div>
-        )
-    }
+        </div>
+    )
 }
-
-export default SelectCurrencies;
