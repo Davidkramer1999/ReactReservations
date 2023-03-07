@@ -174,7 +174,8 @@ export default function AccommodationsTable({ headers, selectedAccommodations })
                                 <input
                                     type="checkbox"
                                     onChange={(e) => getSelected(el.original, e.target.checked)}
-                                    checked={el.original.selected} />
+                                    checked={el.original.selected}
+                                    disabled={el.original.avaliable} />
                             </div>
                         },
                     };
