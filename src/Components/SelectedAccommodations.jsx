@@ -12,7 +12,7 @@ export default function SelectedAccommodations() {
     useEffect(() => {
         const showReservations = accommodations.filter(el => el.selected === true)
         setShowReservations(showReservations)
-    }, [])
+    },[accommodations])
 
     return (
         <AccommodationsTable

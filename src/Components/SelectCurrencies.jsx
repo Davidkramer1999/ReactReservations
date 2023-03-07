@@ -20,7 +20,7 @@ export default function SelectCurrencies() {
         fetch('https://api.exchangerate-api.com/v4/latest/EUR')
             .then(response => response.json())
             .then(data => structureSymbolRate(data.rates));
-    })
+    },[data])
 
 
 
