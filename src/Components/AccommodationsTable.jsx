@@ -143,7 +143,9 @@ export default function AccommodationsTable({ headers, selectedAccommodations })
                         accessor: el,
                         width: 170,
                         className: "alignTextCenter",
-                        Cell: ({ value }) => (value === true ? "Yes" : "No"),
+                        Cell: ( el ) => {
+                            return !el.original.avaliable  ? "Yes" : "No"
+                        },
                         filterMethod: (filter, row) => {
                             if (filter.value === "all") {
                                 return true;
